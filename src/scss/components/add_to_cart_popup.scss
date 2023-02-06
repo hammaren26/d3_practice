@@ -1,0 +1,209 @@
+.modal {
+}
+.add_to_cart_modal {
+   @media (max-width: $w1024) {
+      padding: 0;
+   }
+   /* .add_to_cart_modal__inner */
+   &__inner {
+      max-width: 1200px;
+      border-radius: 5px;
+      background-color: $white;
+      padding: 80px 70px 98px;
+      position: relative;
+
+      @include adaptiveValue("padding-top", 80, 36);
+      @include adaptiveValue("padding-left", 70, 16);
+      @include adaptiveValue("padding-right", 70, 16);
+      @include adaptiveValue("padding-bottom", 98, 40);
+
+      @media (max-width: $w1024) {
+         height: 100%;
+      }
+   }
+   /* .add_to_cart_modal__title */
+   &__title {
+      font-family: "Gilroy_Bold";
+      font-size: 44px;
+      line-height: 50px;
+      line-height: math.div(50, 44);
+      margin-bottom: 60px;
+
+      @include adaptiveValue("font-size", 44, 20);
+      @include adaptiveValue("margin-bottom", 60, 35);
+   }
+   /* .add_to_cart_modal__body */
+   &__body {
+      display: flex;
+
+      @media (max-width: $w1024) {
+         flex-direction: column;
+         align-items: center;
+         height: calc(100% - 40px);
+      }
+   }
+   &__body_l_col {
+      // flex: 0 1 262px;
+      width: 262px;
+      flex-shrink: 0;
+
+      @include adaptiveValue("width", 262, 220);
+   }
+   &__body_r_col {
+      flex-grow: 1;
+      width: 100%;
+
+      @media (max-width: $w1024) {
+         display: flex;
+         flex-direction: column;
+         height: 100%;
+      }
+   }
+   /* .add_to_cart_modal__picture */
+   &__picture {
+      // max-width: 262px;
+
+      padding-bottom: calc(200 / 262 * 100%);
+      position: relative;
+
+      img {
+         position: absolute;
+         top: 0;
+         left: 0;
+         right: 0;
+         bottom: 0;
+         width: 100%;
+         height: 100%;
+         object-fit: contain;
+      }
+   }
+   /* .add_to_cart_modal__info */
+   &__info {
+      @media (max-width: $w1024) {
+         text-align: center;
+      }
+   }
+   /* .add_to_cart_modal__name */
+   &__name {
+      font-size: 24px;
+      line-height: math.div(34, 24);
+      margin-bottom: 24px;
+
+      @include adaptiveValue("font-size", 24, 15);
+      @include adaptiveValue("margin-bottom", 24, 13);
+   }
+   /* .add_to_cart_modal__price */
+   &__price {
+      display: flex;
+      align-items: center;
+      margin-bottom: 44px;
+
+      @media (max-width: $w1024) {
+         justify-content: center;
+      }
+   }
+   /* .add_to_cart_modal__btns */
+   &__btns {
+      font-size: 0;
+      .button_1 {
+      }
+
+      @media (max-width: $w1024) {
+         flex-grow: 1;
+         display: flex;
+         align-items: flex-end;
+         justify-content: space-between;
+      }
+
+      @media (max-width: $mobile) {
+         flex-direction: column;
+         flex-grow: 1;
+         justify-content: flex-end;
+      }
+   }
+   /* .add_to_cart_modal__go_cart */
+   &__go_cart {
+      color: $white;
+      background: $black;
+      margin-right: 20px;
+
+      @media (any-hover: hover) {
+         &:hover {
+            color: $white;
+            background: $black;
+            background-color: $Black_Hover_Button;
+         }
+      }
+
+      @media (max-width: $w1024) {
+         margin-right: 0;
+         width: calc(50% - 10px);
+      }
+
+      @media (max-width: $mobile) {
+         width: 100%;
+         margin-bottom: 12px;
+      }
+   }
+   /* .add_to_cart_modal__cont_shop */
+   &__cont_shop {
+      background: $white;
+      border: 1px solid $divider;
+      color: $black;
+
+      @media (any-hover: hover) {
+         &:hover {
+            border-color: $black;
+         }
+      }
+      @media (max-width: $w1024) {
+         width: calc(50% - 10px);
+      }
+
+      @media (max-width: $mobile) {
+         width: 100%;
+      }
+   }
+}
+.popup {
+   /* .popup__wrapper */
+   &__wrapper {
+   }
+   /* .popup__content */
+   &__content {
+   }
+}
+.modal-close {
+   position: absolute;
+   top: 40px;
+   right: 40px;
+   cursor: pointer;
+
+   @include adaptiveValue("width", 40, 25);
+   @include adaptiveValue("height", 40, 25);
+
+   @include adaptiveValue("top", 40, 36);
+   @include adaptiveValue("right", 40, 23);
+
+   svg {
+      path {
+         transition: all 0.3s ease 0s;
+      }
+   }
+
+   @media (any-hover: hover) {
+      &:hover {
+         svg path {
+            stroke: $black;
+         }
+      }
+   }
+}
+.old_price {
+}
+.current_price {
+}
+.button_1 {
+}
+.uppercase_title {
+}

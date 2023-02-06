@@ -1,0 +1,58 @@
+.page {
+}
+.error_page {
+   margin-top: 145px;
+   padding-top: 80px;
+   padding-bottom: 100px;
+
+   @media (max-width: $pc2) {
+      margin-top: 0;
+   }
+   /* .error_page__content_wrap */
+   &__content_wrap {
+   }
+   /* .error_page__container */
+   &__container {
+   }
+   /* .error_page__content */
+   &__content {
+      text-align: center;
+   }
+   /* .error_page__decor */
+   &__decor {
+      margin-bottom: 32px;
+      display: flex;
+      justify-content: center;
+
+      @include adaptiveValue("margin-bottom", 32, 24);
+      svg {
+         @include adaptiveValue("width", 241, 200);
+      }
+   }
+   /* .error_page__title */
+   &__title {
+      font-family: "Gilroy_Bold", sans-serif;
+      font-size: 32px;
+      line-height: math.div(38, 32);
+      margin-bottom: 12px;
+
+      @include adaptiveValue("font-size", 32, 22);
+   }
+   /* .error_page__subtitle */
+   &__subtitle {
+      font-size: 18px;
+      line-height: math.div(25, 18);
+      color: $grey_text;
+      margin-bottom: 32px;
+
+      @include adaptiveValue("font-size", 18, 17);
+   }
+
+   .submit-btn {
+      // width: max-content;
+      display: inline-flex;
+      margin: 0 auto;
+   }
+}
+.uppercase_title {
+}

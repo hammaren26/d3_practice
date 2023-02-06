@@ -1,0 +1,216 @@
+/* .holiday_modal */
+
+.test_wrapper {
+   background-color: gainsboro;
+}
+
+@keyframes fadeOut {
+   0% {
+   }
+   80% {
+      clip-path: circle(192px at 50% 50%);
+      transform: scale(0.2) translate(-50%, -50%);
+   }
+   90% {
+      clip-path: circle(192px at 50% 50%);
+      transform: scale(0.2) translate(-50%, -50%);
+   }
+   91% {
+      transform: scale(0) translate(-50%, -50%);
+   }
+
+   100% {
+      transform: scale(0) translate(-50%, -50%);
+      // opacity: 0;
+      // visibility: hidden;
+   }
+}
+
+.holiday_modal {
+   position: fixed;
+   top: 0;
+   left: 0;
+   bottom: 0;
+   right: 0;
+   width: 100%;
+   height: 100%;
+
+   &.hide {
+      .holiday_modal__body {
+         animation: fadeOut 0.5s forwards;
+      }
+   }
+
+   /* .holiday_modal__body */
+   &__body {
+      max-width: 800px;
+      background-image: url("https://i.ibb.co/sqMGr73/Frame-62.png");
+      background-repeat: no-repeat;
+      background-position: right 44px;
+      @include adaptiveValue("background-position-y", 44, 39, 1920, 1200);
+      background-color: $white;
+
+      background-size: contain;
+      padding: 40px 105px 40px 40px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: 1;
+      transition: all 0.5s ease 0s;
+      transform: scale(1);
+      transform: translate(-50%, -50%);
+      clip-path: circle(100% at 50% 50%);
+      transform-origin: top left;
+      @include adaptiveValue("padding-top", 40, 30);
+      @include adaptiveValue("padding-bottom", 40, 30);
+      @include adaptiveValue("padding-left", 40, 15);
+      @include adaptiveValue("padding-right", 105, 28);
+
+      @media (max-width: $mobile) {
+         width: calc(100% - 32px);
+         left: 16px;
+         transform: translate(0, -50%);
+         background-position: right bottom;
+      }
+   }
+   /* .holiday_modal__body_inner */
+   &__body_inner {
+      border-radius: 3px;
+   }
+   /* .holiday_modal__title */
+   &__title {
+      font-weight: 700;
+      font-size: 50px;
+      line-height: 135%;
+      margin-bottom: 25px;
+      white-space: nowrap;
+      @include adaptiveValue("font-size", 50, 23);
+      @include adaptiveValue("margin-bottom", 25, 15);
+   }
+   /* .holiday_modal__text */
+   &__text {
+      font-size: 28px;
+      line-height: 140%;
+      margin-bottom: 30px;
+      @include adaptiveValue("font-size", 28, 15);
+      @include adaptiveValue("margin-bottom", 30, 20);
+   }
+   /* .holiday_modal__link */
+   &__link {
+      margin-bottom: 30px;
+      @include adaptiveValue("margin-bottom", 30, 20);
+      a {
+         font-weight: 400;
+         font-size: 20px;
+         line-height: math.div(24, 20);
+         color: $white;
+         display: inline-flex;
+         align-items: center;
+         justify-content: center;
+         min-height: 56px;
+         background: $blue;
+         border-radius: 100px;
+         padding: 0 32px;
+      }
+   }
+   /* .holiday_modal__social */
+   &__social {
+      font-size: 0;
+
+      a {
+         @include adaptiveValue("width", 60, 50);
+         @include adaptiveValue("height", 60, 50);
+         &:not(:last-child) {
+            margin-right: 18px;
+         }
+      }
+   }
+   /* .holiday_modal__close */
+   &__close {
+      position: absolute;
+      top: 27px;
+      right: 27px;
+      @include adaptiveValue("width", 30, 20);
+      @include adaptiveValue("height", 30, 20);
+      @include adaptiveValue("top", 27, 14);
+      @include adaptiveValue("right", 27, 14);
+      cursor: pointer;
+
+      svg {
+         transition: all 0.3s ease 0s;
+      }
+
+      @media (any-hover: hover) {
+         &:hover {
+            svg path {
+               stroke: $black;
+            }
+         }
+      }
+   }
+}
+.modald {
+}
+.modal-overlay {
+   position: absolute;
+   top: 0;
+   left: 0;
+   bottom: 0;
+   right: 0;
+   width: 100%;
+   height: 100%;
+   background-color: $black;
+   opacity: 0.5;
+   z-index: 0;
+   cursor: pointer;
+}
+.js-close-popup {
+}
+
+.holiday_link {
+   position: fixed;
+   bottom: 30px;
+   right: 30px;
+   opacity: 0;
+   visibility: hidden;
+   transition: all 0.3s ease 0s;
+
+   svg {
+      animation: holiday_g 1.5s ease-in-out infinite;
+      circle {
+         &:last-child {
+            // transition: all 0.3s;
+            animation: holiday_circle 1.5s infinite;
+         }
+      }
+
+      path {
+         transition: unset;
+         // animation: holiday_path 1.5s infinite;
+      }
+
+      g {
+      }
+   }
+
+   &.show {
+      opacity: 1;
+      visibility: visible;
+   }
+}
+
+@keyframes holiday_circle {
+   50% {
+      stroke: $blue;
+   }
+}
+@keyframes holiday_path {
+   50% {
+      fill: $white;
+   }
+}
+@keyframes holiday_g {
+   50% {
+      transform: scale(1.1);
+   }
+}

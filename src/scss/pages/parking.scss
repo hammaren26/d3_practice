@@ -1,0 +1,386 @@
+.parking_map {
+   background-color: $gray_light_2;
+   height: 100%;
+
+   @media (max-width: $pc2) {
+      left: 0;
+      width: 100%;
+      top: 48px;
+      bottom: 63px;
+      height: calc(100% - 63px - 55px);
+      box-sizing: border-box;
+   }
+
+   /* .parking_map__inner */
+   &__inner {
+      height: 100%;
+      display: flex;
+   }
+   /* .parking_map__work_area */
+   &__work_area {
+      // border: 1px solid red;
+      width: auto;
+      flex: 1 1 auto;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      text {
+         // dominant-baseline: central;
+         // text-anchor: middle;
+         font-size: 12px;
+      }
+
+      & > svg {
+         width: 100%;
+         height: 100%;
+         padding: 20px;
+         overflow: visible;
+         position: relative;
+         z-index: 1;
+      }
+   }
+   /* .parking_map__info_area */
+   &__info_area {
+      max-width: 358px;
+      background-color: #ffffff;
+
+      @media (max-width: $pc2) {
+         position: fixed;
+         width: 100%;
+         left: 0;
+         right: 0;
+         bottom: 63px;
+         max-width: none;
+         background-color: $white;
+      }
+
+      .parking_map__container {
+         // max-width: 323px;
+         // padding: 0 106px;
+         // @include adaptiveValue("padding-left", 106, 20, 1920, 1200);
+         // @include adaptiveValue("padding-right", 106, 20, 1920, 1200);
+         padding: 0 0 0 32px;
+         box-sizing: content-box;
+         display: flex;
+         flex-direction: column;
+         justify-content: center;
+         height: 100%;
+
+         @media (max-width: $pc2) {
+            padding: 12px 20px;
+         }
+      }
+   }
+   /* .parking_map__title */
+   &__title {
+      font-size: 54px;
+      margin-bottom: 40px;
+      @include adaptiveValue("font-size", 54, 24);
+      @include adaptiveValue("margin-bottom", 40, 17, 1200, 360);
+   }
+   /* .parking_map__info */
+   &__info {
+      background-color: $white;
+      // padding: 24px;
+      // @include adaptiveValue("padding-top", 24, 12);
+      // @include adaptiveValue("padding-bottom", 24, 12);
+      // @include adaptiveValue("padding-right", 24, 16);
+      // @include adaptiveValue("padding-left", 24, 16);
+
+      padding: 0;
+
+      @media (max-width: $pc2) {
+         display: flex;
+         flex-wrap: wrap;
+      }
+   }
+   /* .parking_map__info_row */
+   &__info_row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 24px;
+
+      @include adaptiveValue("margin-bottom", 24, 16);
+
+      & > div:nth-child(1) {
+         width: 25px;
+         height: 25px;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         flex-shrink: 0;
+         color: $white;
+         font-size: 12px;
+         line-height: 1.4;
+         margin-right: 16px;
+      }
+      & > div:nth-child(2) {
+         font-size: 14px;
+         @include adaptiveValue("font-size", 14, 12);
+      }
+
+      &--parking {
+         @media (max-width: $pc2) {
+            margin-right: 25px;
+         }
+         & > div:nth-child(1) {
+            background-color: $green_dark;
+         }
+      }
+      &--storerooms {
+         & > div:nth-child(1) {
+            background-color: $blue_hover_room;
+         }
+      }
+   }
+   /* .parking_map__info_text */
+   &__info_text {
+      font-size: 16px;
+      line-height: 1.4;
+      @include adaptiveValue("font-size", 16, 12);
+
+      @media (max-width: $pc2) {
+         width: 100%;
+      }
+   }
+}
+
+.pantries {
+   /* .pantries__item */
+   &__item {
+      rect {
+         transition: all 0.2s ease 0s;
+      }
+      &.hover {
+         rect {
+            fill: #3c5c8b;
+         }
+      }
+   }
+}
+
+.parking_places__item_bord {
+   transform-box: fill-box;
+}
+
+.parking_places {
+   /* .parking_places__item */
+   &__item {
+      &.hover {
+      }
+      * {
+         cursor: pointer;
+      }
+
+      image {
+         display: none;
+         transform-box: fill-box;
+         transform-origin: center center;
+      }
+
+      rect[width="25"] {
+      }
+
+      .parking_places__item_bord {
+         fill: $white;
+         stroke-width: 1px;
+         stroke-opacity: 0.3;
+      }
+
+      &.booked {
+         * {
+            cursor: default;
+            pointer-events: none;
+         }
+         image {
+            display: block;
+         }
+
+         .parking_places__item_square {
+            display: none;
+         }
+
+         rect[width="25"] {
+            fill: $gray_light;
+            pointer-events: none;
+         }
+
+         text,
+         tspan {
+            fill: $gray_middle;
+         }
+      }
+      &.rotate {
+         text {
+         }
+
+         image {
+            transform-box: fill-box;
+            transform-origin: left top;
+            transform: rotate(60deg);
+         }
+
+         .parking_places__item_bord {
+            transform: rotate(60deg);
+            fill: $white;
+         }
+      }
+
+      &.vertical_down {
+         image {
+            transform: scale(-1);
+         }
+      }
+
+      &.vertical {
+         image {
+            transform: scale(1);
+         }
+      }
+
+      &.horizontal {
+         image {
+            transform-origin: 100% 100%;
+            transform: rotate(90deg);
+            transition: all 0.2s;
+         }
+      }
+   }
+
+   /* .parking_places__item_bord */
+   &__item_bord {
+   }
+   /* .parking_places__item_square */
+   &__item_square {
+   }
+
+   /* .parking_places__num_bord */
+   &__num_bord {
+      transition: all 0.2s ease 0s;
+      transform-origin: center center;
+      transform-box: fill-box;
+   }
+   /* .parking_places__num */
+   &__num {
+   }
+}
+
+.parking_vd {
+   opacity: 0;
+   visibility: hidden;
+   width: 320px;
+   height: 260px;
+
+   &.active {
+      opacity: 1;
+      visibility: visible;
+   }
+}
+
+.parking_vd {
+   overflow: visible;
+   & > div {
+      // position: relative;
+      width: max-content;
+      padding: 24px;
+      background: $white;
+      box-shadow: 0px 0px 18px -3px rgba(34, 60, 80, 0.2);
+   }
+   /* .parking_vd__p_row */
+   &__p_row {
+      margin-bottom: 24px;
+      & > div {
+         &:nth-child(1) {
+            display: flex;
+            align-items: center;
+            margin-bottom: 13px;
+         }
+         &:nth-child(2) {
+            font-size: 20px;
+         }
+      }
+   }
+   /* .parking_vd__p_num */
+   &__p_num {
+      font-size: 12px;
+      color: $white;
+      padding: 4px 2.5px;
+      background-color: $green_dark;
+      margin-right: 12px;
+   }
+   /* .parking_vd__p_title */
+   &__p_title {
+      font-family: $f500;
+      font-size: 16px;
+   }
+   /* .parking_vd__s_row */
+   &__s_row {
+      margin-bottom: 24px;
+      display: none;
+
+      & > div {
+         &:nth-child(1) {
+            font-size: 14px;
+            margin-bottom: 16px;
+         }
+         &:nth-child(2) {
+            display: flex;
+            align-items: center;
+            margin-bottom: 13px;
+         }
+         &:nth-child(3) {
+            font-size: 20px;
+         }
+      }
+      &.active {
+         display: block;
+      }
+   }
+   /* .parking_vd__s_num */
+   &__s_num {
+      background: $blue_hover_room;
+      padding: 4px 3px;
+      font-size: 12px;
+      color: $white;
+      margin-right: 15px;
+   }
+   /* .parking_vd__s_title */
+   &__s_title {
+   }
+   /* .parking_vd__s_square */
+   &__s_square {
+   }
+
+   /* .parking_vd__price */
+   &__price {
+      font-family: $f500;
+      font-size: 28px;
+      margin-bottom: 24px;
+   }
+   /* .parking_vd__button */
+   &__button {
+   }
+
+   &__close {
+      display: inline-block;
+      height: auto;
+      margin-left: 12px;
+      cursor: pointer;
+
+      svg {
+         transition: all 0.2s ease 0s;
+      }
+
+      @media (any-hover: hover) {
+         &:hover {
+            svg {
+               path {
+                  stroke: $black;
+               }
+            }
+         }
+      }
+   }
+}

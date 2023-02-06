@@ -1,0 +1,44 @@
+.products_filter {
+   position: fixed;
+   height: 100vh;
+   background-color: grey;
+   top: 145px;
+   z-index: 1;
+   transition: all 0.3s ease 0s;
+   transform: translateX(-100%);
+
+   &.active {
+      transform: none;
+   }
+   /* .products_filter__inner */
+   &__inner {
+   }
+   /* .products_filter__head */
+   &__head {
+   }
+   /* .products_filter__title */
+   &__title {
+   }
+   /* .products_filter__close */
+   &__close {
+   }
+   /* .products_filter__form */
+   &__form {
+   }
+   /* .products_filter__form-body */
+   &__form-body {
+   }
+   /* .products_filter__form-btns */
+   &__form-btns {
+   }
+   /* .products_filter__submit */
+   &__submit {
+   }
+   /* .products_filter__clear */
+   &__clear {
+   }
+}
+.button_1 {
+}
+.uppercase_title {
+}

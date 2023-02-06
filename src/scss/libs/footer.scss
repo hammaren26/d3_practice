@@ -1,0 +1,510 @@
+//====================================================================================================
+.footer {
+   position: fixed;
+   z-index: 2;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   // padding: 61px 0 76px;
+
+   @include adaptiveValue("padding-top", 61, 30, 1920, 1200);
+   @include adaptiveValue("padding-bottom", 76, 42, 1920, 1200);
+
+   &.main_footer {
+      color: #fff;
+      transform: translateY(100%);
+      transition: transform 800ms ease 0ms;
+
+      &.show {
+         transform: translateY(0);
+         transition: transform 800ms ease 500ms;
+      }
+
+      @media (max-width: $pc2) {
+         top: 52px;
+         width: auto;
+         border: 2px solid greenyellow;
+      }
+   }
+
+   @media (max-width: $pc2) {
+      &:not(&.main_footer) {
+         display: none;
+      }
+   }
+
+   &.bg-white {
+      background-color: $white;
+      color: $black;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      position: relative;
+      z-index: 1;
+      .footer__mail {
+         color: $black;
+      }
+
+      .footer__phone {
+         color: $black;
+
+         @media (any-hover: hover) {
+            &:hover {
+               color: $grey_text;
+            }
+         }
+      }
+
+      .title_3 {
+         color: $black;
+      }
+
+      .nav_footer__list li {
+         color: $black;
+
+         @media (any-hover: hover) {
+            &:hover {
+               color: $grey_text;
+            }
+         }
+      }
+
+      .footer__data_row {
+         color: $grey_text;
+      }
+
+      .footer__personal_info {
+         a {
+            color: $grey_text;
+            border-bottom: 1px solid transparent;
+            @media (any-hover: hover) {
+               &:hover {
+                  color: $grey_text;
+                  border-color: $black;
+               }
+            }
+         }
+      }
+
+      .social_icon {
+         svg path {
+            fill: $black;
+         }
+      }
+
+      .pay_icon {
+         display: none;
+         &.dark_pay_icon {
+            display: block;
+         }
+      }
+
+      .footer__col_right .button_1 {
+         background-color: $black;
+         color: $white;
+         svg path:nth-child(1) {
+            fill: $white;
+            stroke: $white;
+         }
+         svg path:nth-child(2) {
+            stroke: $black;
+         }
+         svg path:nth-child(3) {
+            stroke: $black;
+         }
+         svg path:nth-child(4) {
+            stroke: $black;
+         }
+
+         @media (any-hover: hover) {
+            &:hover {
+               background-color: $Black_Hover_Button;
+               border-color: $Black_Hover_Button;
+               color: $white;
+
+               svg path:nth-child(1) {
+                  fill: $white;
+                  stroke: $white;
+               }
+               svg path:nth-child(2) {
+                  stroke: $black;
+               }
+               svg path:nth-child(3) {
+                  stroke: $black;
+               }
+               svg path:nth-child(4) {
+                  stroke: $black;
+               }
+            }
+         }
+      }
+   }
+
+   img {
+      width: 60px;
+   }
+
+   &__content {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin: 0 -10px;
+
+      @media (max-width: $pc2) {
+         display: none;
+      }
+   }
+   /* .footer__col */
+   &__col {
+      margin: 0 10px;
+   }
+   /* .footer__col_left */
+   &__col_left {
+   }
+   /* .footer__phones */
+   &__phones {
+      display: flex;
+      margin-bottom: 20px;
+      @include adaptiveValue("margin-bottom", 20, 10, 1920, 1200);
+   }
+   /* .footer__phone */
+   &__phone {
+      font-size: 32px;
+      line-height: math.div(38, 32);
+      color: #ffffff;
+      transition: all 0.3s ease 0s;
+
+      @include adaptiveValue("font-size", 32, 26, 1920, 1200);
+      &:first-child {
+         margin: 0 32px 0 0;
+      }
+      @media (any-hover: hover) {
+         &:hover {
+            color: rgba(255, 255, 255, 0.6);
+         }
+      }
+   }
+   /* .footer__mail */
+   &__mail {
+      display: inline-block;
+      font-family: "Gilroy_Regular", sans-serif;
+      font-size: 22px;
+      line-height: math.div(28, 22);
+      color: #ffffff;
+      margin-bottom: 20px;
+      transition: color 0.3s ease 0s;
+
+      @include adaptiveValue("font-size", 22, 18, 1920, 1200);
+      @include adaptiveValue("margin-bottom", 20, 10, 1920, 1200);
+
+      @media (any-hover: hover) {
+         &:hover {
+            color: rgba(255, 255, 255, 0.6);
+         }
+      }
+   }
+   /* .footer__data_row */
+   &__data_row {
+      line-height: 16px;
+      line-height: math.div(16, 16);
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 28px;
+
+      .footer__copyright {
+         margin-bottom: 12px;
+      }
+   }
+   /* .footer__copyright */
+   &__copyright {
+   }
+   /* .footer__address */
+   &__address {
+   }
+   /* .footer__personal_info */
+   &__personal_info {
+      line-height: 16px;
+      line-height: math.div(16, 16);
+      color: rgba(255, 255, 255, 0.6);
+      a {
+         transition: color 0.3s ease 0s;
+
+         @media (any-hover: hover) {
+            &:hover {
+               color: $white;
+            }
+         }
+      }
+      a:first-child {
+         margin: 0 24px 0 0;
+      }
+   }
+   /* .footer__col_middle */
+   &__col_middle {
+   }
+   /* .footer__nav */
+   &__nav {
+   }
+   /* .footer__col_right */
+   &__col_right {
+   }
+   /* .footer__links */
+   &__links {
+      margin-bottom: 40px;
+   }
+   /* .footer__links_title */
+   &__links_title {
+      margin-bottom: 16px;
+   }
+   /* .footer__links_list */
+   &__links_list {
+      display: flex;
+      align-items: center;
+      .social_icon,
+      .pay_icon {
+         &:not(:last-child) {
+            margin-right: 28px;
+         }
+      }
+   }
+
+   .button_1 {
+      white-space: nowrap;
+      @include adaptiveValue("padding-top", 18, 10, 1920, 1200);
+      @include adaptiveValue("padding-bottom", 18, 10, 1920, 1200);
+      @include adaptiveValue("padding-left", 30, 16, 1920, 1200);
+      @include adaptiveValue("padding-right", 30, 16, 1920, 1200);
+   }
+
+   /* .footer__mobile_content */
+   &__mobile_content {
+   }
+   /* .footer__links */
+   &__links {
+   }
+   /* .footer__links_title */
+   &__links_title {
+   }
+   /* .footer__links_list */
+   &__links_list {
+   }
+}
+.pay_icon {
+   &.dark_pay_icon {
+      display: none;
+   }
+}
+.footer_btns {
+   font-size: 0;
+   display: flex;
+   margin-bottom: 32px;
+
+   .button_1 {
+      &:first-child {
+         margin-right: 16px;
+         // padding: 10px 16px;
+      }
+
+      white-space: nowrap;
+      @include adaptiveValue("padding-top", 18, 10, 1920, 1200);
+      @include adaptiveValue("padding-bottom", 18, 10, 1920, 1200);
+      @include adaptiveValue("padding-left", 30, 16, 1920, 1200);
+      @include adaptiveValue("padding-right", 30, 16, 1920, 1200);
+   }
+}
+
+.nav_footer {
+   display: flex;
+   margin: 0 -20px;
+   /* .nav_footer__col */
+   &__col {
+      margin: 0 20px;
+      width: calc(50% - 20px);
+   }
+   /* .nav_footer__title */
+   &__title {
+      margin-bottom: 20px;
+   }
+   /* .nav_footer__list */
+   &__list {
+      li {
+         font-size: 18px;
+         line-height: math.div(24, 18);
+         color: #ffffff99;
+         // white-space: nowrap;
+         transition: color 0.3s ease 0s;
+
+         @media (any-hover: hover) {
+            &:hover {
+               color: $white;
+            }
+         }
+
+         &:not(:last-child) {
+            margin-bottom: 16px;
+         }
+      }
+   }
+}
+.social_icon {
+   transition: opacity 0.3s ease 0s;
+   cursor: pointer;
+   @media (any-hover: hover) {
+      &:hover {
+         opacity: 0.5;
+      }
+   }
+}
+
+.dark {
+}
+
+//====================================================================================================
+
+.footer_mobile {
+   display: none;
+
+   @media (max-width: $pc2) {
+      display: block;
+   }
+   /* .footer_mobile__row */
+   &__row {
+   }
+   /* .footer_mobile__catalog */
+   &__catalog {
+   }
+   /* .footer_mobile__title */
+   &__title {
+      margin-bottom: 12px;
+   }
+   /* .footer_mobile__links_list */
+   &__links_list {
+      font-family: "Gilroy_Medium", sans-serif;
+      font-size: 17px;
+      line-height: math.div(24, 17);
+      columns: 100px 2;
+      column-gap: 10px;
+      margin-bottom: 50px;
+
+      li {
+         white-space: nowrap;
+         &:not(:last-child) {
+            margin-bottom: 13px;
+         }
+      }
+   }
+   /* .footer_mobile__social */
+   &__social {
+      .social_icon {
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         flex-grow: 1;
+         min-height: 90px;
+         max-width: 101px;
+         border: 1px solid rgba(255, 255, 255, 0.2);
+         backdrop-filter: blur(8px);
+         border-radius: 3px;
+
+         &:not(:last-child) {
+            margin-right: 12px;
+         }
+
+         @media (max-width: $mobile) {
+            max-width: none;
+         }
+      }
+   }
+   /* .footer_mobile__messengers */
+   &__messengers {
+   }
+
+   .footer_btns {
+   }
+
+   .button_1 {
+      width: calc(50% - 8px);
+   }
+}
+.title_1 {
+}
+.uppercase_title {
+}
+.social_icon {
+}
+
+.undefined {
+}
+
+// ??? этого блока вообще не должно быть на внутренних страницах (только на главной).
+// ??? Спросить у Кости можно ли чтоб он их не выводил на внутренних
+.page.catalog_page + .footer .footer__mobile_content.footer_mobile,
+.page.products_list_page + .footer .footer__mobile_content.footer_mobile,
+.page.search_results_page + .footer .footer__mobile_content.footer_mobile,
+.page.card_page + .footer .footer__mobile_content.footer_mobile,
+.page.personal_account_page.personal_account + .footer .footer__mobile_content.footer_mobile,
+.page.contacts_page + .footer .footer__mobile_content.footer_mobile,
+.page.cart_page + .footer .footer__mobile_content.footer_mobile,
+.page.wishlist_page + .footer .footer__mobile_content.footer_mobile,
+.page.payment + .footer .footer__mobile_content.footer_mobile,
+.page.error_page + .footer .footer__mobile_content.footer_mobile {
+   display: none !important;
+}
+
+.footer__inner_page_mobile.footer_inner_page_mobile {
+}
+
+.footer {
+   /* .footer__inner_page_mobile */
+   &__inner_page_mobile {
+   }
+}
+.footer_inner_page_mobile {
+   padding: 17px 0;
+   display: none;
+
+   margin-bottom: calc(29px + 57px);
+
+   @media (max-width: $pc2) {
+      display: block;
+   }
+   .button_1 {
+      border-color: $black;
+      color: $black;
+
+      svg path {
+         fill: $black;
+      }
+   }
+   /* .footer_inner_page_mobile__top_row */
+   &__top_row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+   }
+   /* .footer_inner_page_mobile__socials */
+   &__socials {
+      font-size: 0;
+
+      .social_icon {
+         @include adaptiveValue("width", 40, 32);
+         @include adaptiveValue("height", 40, 32);
+         &:not(:last-child) {
+            margin-right: 16px;
+         }
+      }
+   }
+   /* .footer_inner_page_mobile__messengers */
+   &__messengers {
+   }
+   /* .footer_inner_page_mobile__bottom_row */
+   &__bottom_row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: $grey_text;
+   }
+}
+.social_icon {
+}
+
+.copyright {
+}

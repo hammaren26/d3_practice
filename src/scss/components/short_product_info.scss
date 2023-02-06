@@ -1,0 +1,103 @@
+.short-product-info {
+   position: fixed;
+   top: 0;
+   left: 0;
+   right: 0;
+   width: 100%;
+   z-index: 5;
+   background-color: $white;
+   display: none;
+
+   @media (max-width: $pc2) {
+      display: block;
+   }
+
+   &:after {
+      position: absolute;
+      content: "";
+      display: block;
+      bottom: -28px;
+      left: 0;
+      right: 0;
+      height: 28px;
+      background: linear-gradient(180deg, rgba(133, 133, 133, 0.2) 0%, rgba(133, 133, 133, 0) 100%);
+      z-index: 5;
+   }
+   /* .short-product-info__container */
+   &__container {
+      padding-top: 12px;
+      padding-bottom: 12px;
+   }
+   /* .short-product-info__name */
+   &__name {
+      font-size: 14px;
+      line-height: 1.2;
+      margin-bottom: 8px;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+   }
+   /* .short-product-info__bot_row */
+   &__bot_row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+   }
+   /* .short-product-info__links */
+   &__links {
+      font-size: 0;
+      display: flex;
+
+      .add_to_cart_btn {
+         min-height: 36px;
+         margin-right: 17px;
+
+         @media (max-width: $mobile) {
+            min-height: 36px;
+            height: 36px;
+            width: auto;
+            padding: 0 60px;
+         }
+
+         span {
+            font-size: 12px;
+            margin: 0;
+
+            @media (max-width: $mobile) {
+               display: block;
+            }
+         }
+      }
+
+      .wishlist_btn {
+         min-width: auto;
+         min-height: auto;
+         border: none;
+      }
+
+      .old_price {
+         line-height: 1;
+      }
+   }
+   /* .short-product-info__price */
+   &__price {
+      display: flex;
+      align-items: center;
+
+      @media (max-width: $mobile) {
+         flex-direction: column;
+         align-items: flex-end;
+
+         .old_price {
+            padding: 0;
+            margin: 0;
+            border-right: none;
+         }
+      }
+   }
+}
+
+.current_price {
+}

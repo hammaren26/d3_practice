@@ -1,0 +1,35 @@
+@font-face {
+   font-family: "Formular_Medium";
+   font-display: swap;
+   src: url("../fonts/Formular-Medium.woff2") format("woff2"), url("../fonts/Formular-Medium.woff") format("woff");
+   font-weight: 500;
+   font-style: normal;
+}
+@font-face {
+   font-family: "Formular_Regular";
+   font-display: swap;
+   src: url("../fonts/Formular.woff2") format("woff2"), url("../fonts/Formular.woff") format("woff");
+   font-weight: 400;
+   font-style: normal;
+}
+@font-face {
+   font-family: "Pobeda_Bold";
+   font-display: swap;
+   src: url("../fonts/pobeda-bold.woff2") format("woff2"), url("../fonts/pobeda-bold.woff") format("woff");
+   font-weight: 700;
+   font-style: normal;
+}
+
+@font-face {
+   font-family: "Formular_Bold";
+   font-display: swap;
+   src: url("../fonts/Formular-Bold.woff2") format("woff2"), url("../fonts/Formular-Bold.woff") format("woff");
+   font-weight: 700;
+   font-style: normal;
+}
+
+// переменные шрифтов
+$f400: "Formular_Regular", sans-serif;
+$f500: "Formular_Medium", sans-serif;
+$f700: "Formular_Bold", sans-serif;
+$p700: "Pobeda_Bold", sans-serif;

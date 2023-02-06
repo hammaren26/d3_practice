@@ -1,0 +1,87 @@
+/* Animations */
+// @keyframes fadeIn {
+//    0% {
+//       opacity: 0;
+//       visibility: hidden;
+//    }
+//    100% {
+//       opacity: 1;
+//       visibility: visible;
+//    }
+// }
+
+// @keyframes fadeOut {
+//    0% {
+//       opacity: 1;
+//       visibility: visible;
+//    }
+//    100% {
+//       opacity: 0;
+//       visibility: hidden;
+//    }
+// }
+// @keyframes fadeInDown {
+//    0% {
+//       opacity: 0;
+//       transform: translateY(-3rem);
+//    }
+//    100% {
+//       opacity: 1;
+//       transform: translateY(0);
+//    }
+// }
+// @keyframes fadeOutUp {
+//    0% {
+//       opacity: 1;
+//       transform: translateY(0);
+//    }
+//    100% {
+//       opacity: 0;
+//       transform: translateY(-3rem);
+//    }
+// }
+// @keyframes zoomIn {
+//    0% {
+//       opacity: 0;
+//       transform: scale(0.3);
+//    }
+//    100% {
+//       opacity: 1;
+//       transform: scale(1);
+//    }
+// }
+// @keyframes zoomOut {
+//    0% {
+//       opacity: 1;
+//       transform: scale(1);
+//    }
+//    100% {
+//       opacity: 0;
+//       transform: scale(0.3);
+//    }
+// }
+// @keyframes fadeInLeft {
+//    0% {
+//       opacity: 0;
+//       transform: translateX(100%);
+//    }
+//    100% {
+//       opacity: 1;
+//       transform: translateY(0);
+//    }
+// }
+// @keyframes fadeOutRight {
+//    0% {
+//       opacity: 1;
+//       transform: translateY(0);
+//    }
+//    100% {
+//       opacity: 0;
+//       transform: translateX(100%);
+//    }
+// }
+@keyframes upDown {
+   50% {
+      bottom: 10%;
+   }
+}

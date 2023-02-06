@@ -1,0 +1,42 @@
+.cfloor_page {
+   // height: 100%;
+   display: flex;
+   flex-grow: 1;
+   align-items: flex-end;
+
+   @media (max-width: $pc2) {
+      display: block;
+   }
+   .choosing_floor__svg {
+      margin: 0;
+   }
+
+   .choosing_floor__svg {
+      height: auto;
+      @media (max-width: $pc2) {
+         display: none;
+      }
+   }
+
+   .choosing_floor.section_page {
+      height: 100%;
+      display: flex;
+      align-items: flex-end;
+      background: linear-gradient(20deg, rgb(2, 0, 36) 0%, rgb(56 157 217) 61%, rgb(32 124 177) 100%);
+      @media (max-width: $pc2) {
+         background: none;
+         align-items: flex-start;
+         height: auto;
+         min-height: auto;
+      }
+   }
+
+   .choosing_floor__container {
+      display: none;
+
+      @media (max-width: $pc2) {
+         display: block;
+         width: 100%;
+      }
+   }
+}

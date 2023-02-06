@@ -1,0 +1,149 @@
+@use "sass:meta";
+@use "sass:math";
+
+//Подключение шрифта
+@mixin font($font_name, $file_name, $weight, $style) {
+   @font-face {
+      font-family: $font_name;
+      font-display: swap;
+      src: url("../fonts/#{$file_name}.woff2") format("woff2"), url("../fonts/#{$file_name}.woff") format("woff");
+      font-weight: #{$weight};
+      font-style: #{$style};
+   }
+}
+//Percent
+@function percent($px, $from) {
+   $result: math.div($px, $from) * 100%;
+   @return $result;
+}
+//REM
+@function rem($px) {
+   $result: math.div($px, 16) + rem;
+   @return $result;
+}
+//EM
+@function em($px, $current: 16) {
+   $result: math.div($px, $current) + em;
+   @return $result;
+}
+//Адаптивное свойство
+
+//Currency
+@mixin currency($sym) {
+   &::after {
+      content: "#{$sym}";
+   }
+}
+
+// Grids
+@mixin gridCards($type: fit, $min: 280px, $max: 1fr, $gap: 30px) {
+   display: grid;
+   gap: $gap;
+   grid-template-columns: repeat(auto-#{$type}, minmax($min, $max));
+}
+
+// @mixin adaptiveValue($property, $startSize, $minSize, $widthFrom: $containerWidth, $widthTo: $minWidth, $keepSize: 0) {
+//    @if ($widthFrom == $containerWidth and $maxWidthContainer == 0) {
+//       $widthFrom: $maxWidth;
+//    }
+//    // Брейк-поинты в PX
+//    $widthFromMedia: #{$widthFrom}px;
+//    $widthToMedia: #{$widthTo}px;
+
+//    // Формула плавающего значения
+//    // Источник: https://css-tricks.com/linearly-scale-font-size-with-css-clamp-based-on-the-viewport/
+//    $slope: math.div(($startSize - $minSize), ($widthFrom - $widthTo));
+//    $yIntersection: -$widthTo * $slope + $minSize;
+//    $flyValue: #{#{$yIntersection}px} " + " #{$slope * 100}vw;
+
+//    $propertyValue: #{"clamp(" #{$minSize}px "," $flyValue "," #{$startSize}px ")"};
+
+//    @if $widthFrom == $containerWidth or $widthFrom == $maxWidth or $keepSize == 1 or $keepSize == 2 {
+//       @media (min-width: $widthFromMedia) {
+//          #{$property}: #{$startSize}px;
+//       }
+//    }
+//    @media (min-width: $widthToMedia) and (max-width: $widthFromMedia) {
+//       #{$property}: $propertyValue;
+//    }
+//    @if $widthTo == $minWidth or $keepSize == 1 or $keepSize == 3 {
+//       @media (max-width: $widthToMedia) {
+//          #{$property}: #{$minSize}px;
+//       }
+//    }
+// }
+
+// @mixin button-size($padding-y, $padding-x, $border-radius, $font-size: 16px) {
+//    padding: $padding-x $padding-y;
+//    border-radius: $border-radius;
+//    > .button-title {
+//       font-size: $font-size;
+//    }
+// }
+
+// @mixin button-size2($selectors...) {
+//    @for $i from 0 to length($selectors) {
+//       #{nth($selectors, $i+1)} {
+//          $mul: $i + 1;
+//          border: 1px solid green;
+//          padding: 5px * $mul 10px * $mul;
+//          border-radius: 5px * $mul;
+//          font-size: 16px * $mul;
+//       }
+//    }
+// }
+
+// @include button-size2(".button-size-sm", ".button-size-md", ".button-size-xl");
+
+// @mixin button-types($args...) {
+//    @each $name, $color in meta.keywords($args) {
+//       .button-type-#{$name} {
+//          border: 2px solid $color;
+//          color: $color;
+//       }
+//    }
+// }
+
+// @include button-types($success: #080, $error: #800, $info: #075698);
+
+// @mixin hover {
+//    &:not([disabled]):hover {
+//       @content ('not_disabled');
+//    }
+
+//    &:hover {
+//       @content ('disabled');
+//    }
+// }
+
+// !! переделать в calc !!
+@mixin adaptiveValue($property, $startSize, $minSize, $widthFrom: $maxWidth, $widthTo: $minWidth) {
+   // @if ($widthFrom == $containerWidth and $maxWidthContainer == 0) {
+   //    $widthFrom: $maxWidth;
+   // }
+   // Брейк-поинты в PX
+   $widthFromMedia: #{$widthFrom}px;
+   $widthToMedia: #{$widthTo}px;
+   $addSize: $startSize - $minSize;
+   $propertyValue: calc(#{$minSize + px} + #{$addSize} * ((100vw - #{$widthToMedia}) / #{$widthFrom - $widthTo}));
+
+   @if $widthFrom == $containerWidth or $widthFrom == $maxWidth {
+      @media (min-width: $widthFromMedia) {
+         #{$property}: #{$startSize}px;
+      }
+   }
+   @media (min-width: $widthToMedia) and (max-width: $widthFromMedia) {
+      #{$property}: $propertyValue;
+   }
+   @if $widthTo == $minWidth {
+      @media (max-width: $widthToMedia) {
+         #{$property}: #{$minSize}px;
+      }
+   }
+
+   @if ($widthFrom != $maxWidth) or ($widthTo != $minWidth) {
+      @media (min-width: $widthTo) and (max-width: $widthFrom) {
+         #{$property}: calc(#{$minSize + px} + #{$addSize} * ((100vw - #{$widthToMedia}) / #{$widthFrom - $widthTo}));
+      }
+   }
+}
