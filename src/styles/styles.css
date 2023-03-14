@@ -1,0 +1,40 @@
+@charset "UTF-8";
+/* @import "roboto.css"; */
+@import "icons_fonts.css";
+
+/* @import "~materialize-css"; */
+
+.container {
+   padding-top: 2rem;
+   max-width: 1000px;
+   margin: 0 auto;
+}
+
+h1 {
+   text-align: center;
+}
+
+body {
+   font-family: "Roboto", sans-serif;
+}
+
+.logo {
+   height: 200px;
+   width: 200px;
+   margin: 0 auto;
+   background-image: url("../logo.jpg");
+   background-size: cover;
+}
+
+pre.test {
+   color: chartreuse;
+}
+
+.ddd {
+   color: green;
+   background-color: currentColor;
+}
+
+.ddd input:empty {
+   border: 2px solid red;
+}
