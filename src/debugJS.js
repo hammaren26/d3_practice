@@ -9,45 +9,137 @@ import { ConvertCsvToArr, highlightRegion } from './functions';
 
 
 document.addEventListener('DOMContentLoaded', function (e) {
+   d3.csv('boxplots.csv').then(data => {
+      scatterplot(data)
+   })
 
 
-   let scatterData = [
-      { friends: 5, salary: 22000 },
-      { friends: 3, salary: 18000 },
-      { friends: 10, salary: 88000 },
-      { friends: 0, salary: 180000 },
-      { friends: 27, salary: 56000 },
-      { friends: 8, salary: 74000 }
-   ];
-
-   let xExtent = d3.extent(scatterData, d => d.salary);
-   let yExtent = d3.extent(scatterData, d => d.friends);
-   let xScale = d3.scaleLinear().domain(xExtent).range([0, 500]);
-   let yScale = d3.scaleLinear().domain(yExtent).range([0, 500]);
+   const tickSize = 470
 
 
-   console.log({
-      xExtent,
-      yExtent,
-      xScale,
-      yScale,
-   });
-
-   d3.select("svg")
-      .selectAll("circle")
-      .data(scatterData)
-      .enter()
-      .append("circle")
-      .attr("r", 5)
-      .attr("cx", d => xScale(d.salary))
-      .attr("cy", d => yScale(d.friends));
+   function scatterplot(data) {
+      const xScale = d3.scaleLinear().domain([1, 8]).range([20, tickSize])
+      const yScale = d3.scaleLinear().domain([0, 100]).range([tickSize + 10, 20])
 
 
-   let yAxis = d3.axisRight().scale(yScale).ticks(4).tickSize(500)
-   d3.select("svg").append("g").attr("id", "yAxisG").call(yAxis)
 
-   let xAxis = d3.axisBottom().scale(xScale).tickSize(500).ticks(8)
-   d3.select("svg").append("g").attr("id", "xAxisG").call(xAxis)
-   // xAxis(d3.select("svg").append("g").attr("id", "xAxisG"))
+      const yAxis = d3
+         .axisLeft()
+         .scale(yScale)
+         .ticks(8)
+         .tickSize(tickSize)
 
+      // const xAxis = d3
+      //    .axisBottom()
+      //    .scale(xScale)
+      //    .tickSize(-tickSize)
+      //    .tickValues([1, 2, 3, 4, 5, 6, 7])
+
+
+
+      const xAxis = d3
+         .axisBottom()
+         .scale(xScale)
+         .tickSize(-tickSize)
+         .tickValues([1, 2, 3, 4, 5, 6, 7]);
+
+
+      d3.select("svg")
+         .append("g")
+         .attr("transform", `translate(${tickSize},0)`)
+         .attr("id", "yAxisG")
+         .call(yAxis)
+
+      d3.select("svg")
+         .append("g")
+         .attr("transform", `translate(0,${tickSize + 10})`)
+         .attr("id", "xAxisG")
+         .call(xAxis)
+
+      d3.select("svg")
+         .selectAll("circle.median")
+         .data(data)
+         .enter()
+         .append("circle")
+         .attr("class", "tweets")
+         .attr("r", 5)
+         .attr("cx", d => xScale(d.day))
+         .attr("cy", d => yScale(d.median))
+         .style("fill", "red")
+
+
+      d3.select("svg")
+         .selectAll("g.box")
+         .data(data)
+         .enter()
+         .append("g")
+         .attr("class", "box")
+         .attr("transform", d => {
+            return `translate(${xScale(d.day)}, ${yScale(d.median)})`
+         })
+         .each(function (obj, index) {
+            // d3.select(this)
+            //    .append("rect")
+            //    .attr("x", -10)
+            //    .attr("fill-opacity", '0.5')
+            //    .attr("y", yScale(obj.q3) - yScale(obj.median))
+            //    .attr("width", 20)
+            //    .attr("height", yScale(obj.q1) - yScale(obj.q3));
+
+            d3.select(this)
+               .append('line')
+               .attr('class', 'range')
+               .attr('x1', 0)
+               .attr('x2', 0)
+               .attr('y1', yScale(obj.max) - yScale(obj.median))
+               .attr('y2', yScale(obj.min) - yScale(obj.median))
+               .style('stroke', 'black')
+               .style('stroke-width', '4px')
+
+            d3.select(this)
+               .append("line")
+               .attr("class", "max")
+               .attr("x1", -10)
+               .attr("x2", 10)
+               .attr("y1", yScale(obj.max) - yScale(obj.median))
+               .attr("y2", yScale(obj.max) - yScale(obj.median))
+               .style("stroke", "black")
+               .style("stroke-width", "4px")
+
+            d3.select(this)
+               .append("line")
+               .attr("class", "min")
+               .attr("x1", -10)
+               .attr("x2", 10)
+               .attr("y1", yScale(obj.min) - yScale(obj.median))
+               .attr("y2", yScale(obj.min) - yScale(obj.median))
+               .style("stroke", "black")
+               .style("stroke-width", "4px")
+
+            d3.select(this)
+               .append("rect")
+               .attr("class", "range")
+               .attr("width", 20)
+               .attr("x", -10)
+               .attr("y", yScale(obj.q3) - yScale(obj.median))
+               .attr("height", yScale(obj.q1) - yScale(obj.q3))
+               .style("fill", "white")
+               .style("stroke", "black")
+               .style("stroke-width", "2px")
+               .style("fill-opacity", "0.5")
+
+            d3.select(this)
+               .append("line")
+               .attr("x1", -10)
+               .attr("x2", 10)
+               .attr("y1", 0)
+               .attr("y2", 0)
+               .style("stroke", "darkgray")
+               .style("stroke-width", "4px")
+         })
+
+
+      d3.select("#xAxisG > path.domain").style("display", "none");
+
+   }
 })
