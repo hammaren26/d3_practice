@@ -17,64 +17,46 @@ document.addEventListener('DOMContentLoaded', function (e) {
 
 
    function histogram(tweetsData) {
-      console.log(tweetsData);
 
-      var xScale = d3.scaleLinear().domain([0, 5]).range([0, 500]);
-      var yScale = d3.scaleLinear().domain([0, 10]).range([400, 0]);
+      var fillScale = d3.scaleOrdinal().range(["#fcd88a", "#cf7c1c", "#93c464"])
+      var normal = d3.randomNormal()
+      var sampleData1 = d3.range(100).map(d => normal())
+      var sampleData2 = d3.range(100).map(d => normal())
 
+      console.log(sampleData2);
 
-      var xAxis = d3.axisBottom().scale(xScale).ticks(5)
+      var sampleData3 = d3.range(100).map(d => normal())
       var histoChart = d3.histogram();
 
-      function retweets() {
-         histoChart.value(d => d.retweets.length)
-         histoData = histoChart(tweetsData);
-
-         d3.selectAll("rect")
-            .data(histoData)
-            .transition()
-            .duration(500)
-            .attr("x", d => xScale(d.x0))
-            .attr("y", d => yScale(d.length))
-            .attr("height", d => 400 - yScale(d.length))
-      };
-
-
-
       histoChart
-         .domain([0, 5])
-         .thresholds([0, 1, 2, 3, 4, 5])
-         .value(d => {
-            return d.favorites.length
-         })
+         .domain([-3, 3])
+         .thresholds([-3, -2.5, -2, -1.5, -1,
+         -0.5, 0, 0.5, 1, 1.5, 2, 2.5, 3])
+         .value(d => d)
 
-      let histoData = histoChart(tweetsData);
+      var yScale = d3.scaleLinear().domain([-3, 3]).range([400, 0]);
+      var yAxis = d3.axisRight().scale(yScale)
+         .tickSize(300)
 
-      console.log('histoData: ', histoData);
+      d3.select("svg").append("g").call(yAxis)
+
+      var area = d3.area()
+         .x0(d => -d.length)
+         .x1(d => d.length)
+         .y(d => yScale(d.x0))
+      // .curve(d3.curveCatmullRom)
 
       d3.select("svg")
-         .selectAll("rect")
-         .data(histoData)
+         .selectAll("g.violin")
+         .data([sampleData1, sampleData2, sampleData3])
          .enter()
-         .append("rect")
-         .attr("x", d => {
-            return xScale(d.x0)
-         })
-         .attr("y", d => yScale(d.length))
-         .attr("width", d => xScale(d.x1 - d.x0) - 2)
-         .attr("height", d => 400 - yScale(d.length))
-         .style("fill", "#FCD88B")
-         .on("click", retweets)
-
-      d3.select("svg")
          .append("g")
-         .attr("class", "x axis")
-         .attr("transform", "translate(0,400)")
-         .call(xAxis);
-
-      d3.select("g.axis")
-         .selectAll("text")
-         .attr("dx", 50);
+         .attr("class", "violin")
+         .attr("transform", (d, i) => `translate(${50 + i * 100},0)`)
+         .append("path")
+         .style("stroke", "black")
+         .style("fill", (d, i) => fillScale(i))
+         .attr("d", d => area(histoChart(d)))
    }
 
 
