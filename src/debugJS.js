@@ -10,51 +10,74 @@ import { ConvertCsvToArr, highlightRegion } from './functions';
 
 document.addEventListener('DOMContentLoaded', function (e) {
 
-   d3.csv("movies.csv").then(data => {
-      lineChart(data)
+   d3.json("tweets.json").then(data => {
+      histogram(data.tweets)
    })
 
 
-   function lineChart(data) {
-      var fillScale = d3.scaleOrdinal()
-         .domain(["titanic", "avatar", "akira", "frozen", "deliverance", "avengers"])
-         .range(["#fcd88a", "#cf7c1c", "#93c464", "#75734F", "#5eafc6", "#41a368"])
+
+   function histogram(tweetsData) {
+      console.log(tweetsData);
+
+      var xScale = d3.scaleLinear().domain([0, 5]).range([0, 500]);
+      var yScale = d3.scaleLinear().domain([0, 10]).range([400, 0]);
 
 
-      var xScale = d3.scaleLinear().domain([1, 8]).range([20, 470]);
-      var yScale = d3.scaleLinear().domain([0, 55]).range([480, 20])
+      var xAxis = d3.axisBottom().scale(xScale).ticks(5)
+      var histoChart = d3.histogram();
 
-      Object.keys(data[0]).forEach(key => {
-         if (key != "day") {
-            var movieArea = d3.area()
-               .x(d => xScale(d.day))
-               .y0(d => yScale(simpleStacking(d, key) - d[key]))
-               .y1(d => yScale(simpleStacking(d, key)))
-               .curve(d3.curveBasis)
+      function retweets() {
+         histoChart.value(d => d.retweets.length)
+         histoData = histoChart(tweetsData);
 
-            d3.select("svg")
-               .append("path")
-               .attr("id", key + "Area")
-               .attr("d", movieArea(data))
-               .attr("fill", fillScale(key))
-               .attr("stroke", "black")
-               .attr("stroke-width", 1)
-         }
-      })
+         d3.selectAll("rect")
+            .data(histoData)
+            .transition()
+            .duration(500)
+            .attr("x", d => xScale(d.x0))
+            .attr("y", d => yScale(d.length))
+            .attr("height", d => 400 - yScale(d.length))
+      };
 
-      function simpleStacking(lineData, lineKey) {
 
-         var newHeight = 0
-         Object.keys(lineData).every(key => {
-            if (key !== "day") {
-               newHeight += parseInt(lineData[key]);
-               if (key === lineKey) {
-                  return false
-               }
-            }
-            return true
+
+      histoChart
+         .domain([0, 5])
+         .thresholds([0, 1, 2, 3, 4, 5])
+         .value(d => {
+            return d.favorites.length
          })
-         return newHeight
-      }
+
+      let histoData = histoChart(tweetsData);
+
+      console.log('histoData: ', histoData);
+
+      d3.select("svg")
+         .selectAll("rect")
+         .data(histoData)
+         .enter()
+         .append("rect")
+         .attr("x", d => {
+            return xScale(d.x0)
+         })
+         .attr("y", d => yScale(d.length))
+         .attr("width", d => xScale(d.x1 - d.x0) - 2)
+         .attr("height", d => 400 - yScale(d.length))
+         .style("fill", "#FCD88B")
+         .on("click", retweets)
+
+      d3.select("svg")
+         .append("g")
+         .attr("class", "x axis")
+         .attr("transform", "translate(0,400)")
+         .call(xAxis);
+
+      d3.select("g.axis")
+         .selectAll("text")
+         .attr("dx", 50);
    }
+
+
+
+
 })
