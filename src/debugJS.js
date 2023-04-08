@@ -12,141 +12,123 @@ import { ConvertCsvToArr, highlightRegion } from './functions';
 
 
 document.addEventListener('DOMContentLoaded', function (e) {
-   d3.json("tweets.json").then(data => {
-      pieChart(data.tweets)
-      // test()
+   d3.csv("movies.csv").then(data => {
+      dataViz(data)
    })
 
-   function pieChart(data) {
-      var nestedTweets = d3.group(data, d => d.user)
 
-      nestedTweets.forEach(obj => {
-         obj.numTweets = obj.length;
-         obj.numFavorites = d3.sum(obj, p => {
-            return p.favorites.length
+   function dataViz(data) {
+      // var xScale = d3.scaleLinear().domain([0, 10]).range([0, 500]);
+      // var yScale = d3.scaleLinear().domain([0, 100]).range([500, 0]);
+
+
+      var xScale = d3.scaleLinear().domain([0, 10]).range([0, 500])
+      var yScale = d3.scaleLinear().domain([0, 60]).range([480, 0])
+      var heightScale = d3.scaleLinear().domain([0, 60]).range([0, 480])
+
+
+      let movies = [
+         "titanic",
+         "avatar",
+         "akira",
+         "frozen",
+         "deliverance",
+         "avengers"
+      ]
+
+      var fillScale = d3
+         .scaleOrdinal()
+         .domain(movies)
+         .range([
+            "#fcd88a",
+            "#cf7c1c",
+            "#93c464",
+            "#75734F",
+            "#5eafc6",
+            "#41a368"
+         ])
+
+      let stackLayout = d3
+         .stack()
+         .keys(movies)
+
+
+      var stackArea = d3.area()
+         .x((d, i) => {
+            return xScale(i)
          })
-         obj.numRetweets = d3.sum(obj, p => {
-            return p.retweets.length
+         .y0((d, i) => {
+            return yScale(d[0])
          })
-      })
-
-      let pieChart = d3.pie();
-      let newArc = d3.arc();
-      pieChart.value(d => d[1].numTweets).sort(null)
-      let tweetsPie = pieChart(nestedTweets)
+         .y1(d => yScale(d[1]))
+         .curve(d3.curveBasis)
 
 
 
-      pieChart.value(d => {
-         return d[1].numRetweets
-      })
-
-      let retweetsPie = pieChart(nestedTweets)
+      // stackLayout
+      //    .offset(d3.stackOffsetSilhouette)
+      //    .order(d3.stackOrderInsideOut)
 
 
-
-      nestedTweets.forEach((d, i) => {
-         d.tweetsSlice = tweetsPie.filter(el => {
-            return el['data'][0] == i;
-         })
-         d.retweetsSlice = retweetsPie.filter(el => {
-            return el['data'][0] == i;
-         })
-      })
-
-      // console.log('nestedTweets', nestedTweets);
-      // console.log('tweetsPie', tweetsPie);
-      // console.log(retweetsPie);
+      // yScale.domain([-50, 50])
 
 
+      // d3.select("svg")
+      //    .selectAll("path")
+      //    .data(stackLayout(data))
+      //    .enter()
+      //    .append("path")
+      //    .style("fill", d => fillScale(d.key))
+      //    .attr("d", d => stackArea(d))
+      //    .attr("id", d => {
+      //       return d.key
+      //    });
 
 
-
-
-
-      newArc
-         .innerRadius(20)
-         .outerRadius(100)
-
-      var fillScale = d3.scaleOrdinal()
-         .range(["#fcd88a", "#cf7c1c", "#93c464", "#75734F"])
 
       d3.select("svg")
-         .append("g")
-         .attr("transform", "translate(100,100)")
-         .selectAll("path")
-         .data(tweetsPie, function (d, i) {
-            // console.log(d, i);
-         })
+         .selectAll("g.bar")
+         .data(stackLayout(data))
          .enter()
-         .append("path")
-         .attr("d", newArc)
-         .style("fill", (d, i) => fillScale(i))
-         .style("stroke", "black")
-         .style("stroke-width", "2px");
-
-
-      btn.addEventListener('click', () => {
-         pieChart.value(d => d[1].numFavorites).sort(null)
-
-         d3.selectAll("path")
-            .data(pieChart(nestedTweets))
-            .transition()
-            .duration(1000)
-            .attr("d", newArc)
-         // .attrTween("d", arcTween)
-      })
-
-      function arcTween(d) {
-         console.log(d);
-         return t => {
-            // var interpolateStartAngle = d3
-            //    .interpolate(d.tweetsSlice.startAngle, d.retweetsSlice.startAngle);
-            // var interpolateEndAngle = d3
-            //    .interpolate(d.tweetsSlice.endAngle, d.retweetsSlice.endAngle);
-            // d.startAngle = interpolateStartAngle(t);
-            // d.endAngle = interpolateEndAngle(t);
-            return newArc(d);
-         }
-      }
-   }
-
-   function test() {
-      // const i = d3.interpolateNumber(0, 100);
-      const i = d3.interpolate(
-         { colors: ["red", "blue"] },
-         { colors: ["white", "black"] }
-      );
-      let ff = i(1)
-      console.log(ff);
-      // let f = d3.interpolateLab("#ffffff", "red")(0.3);
-      // console.log(f)
+         .append("g")
+         .attr("class", "bar")
+         .each(function (d) {
+            console.log(d);
+            d3
+               .select(this)
+               .selectAll("rect")
+               .data(d)
+               .enter()
+               .append("rect")
+               .attr("x", (p, q) => {
+                  // console.log(p, q);
+                  return xScale(q) + 30
+               })
+               .attr("y", (p, i) => {
+                  // console.log(p[1], i);
+                  return yScale(p[1])
+               })
+               .attr("height", p => heightScale(p[1] - p[0]))
+               .attr("width", 40)
+               .style("fill", fillScale(d.key));
+         });
 
 
 
-      btn.addEventListener('click', () => {
+      /*----------------------------------------------------*/
+      const new_data = [
+         { month: new Date(2015, 0, 1), apples: 3840, bananas: 1920, cherries: 960, durians: 400 },
+         { month: new Date(2015, 1, 1), apples: 1600, bananas: 1440, cherries: 960, durians: 400 },
+         { month: new Date(2015, 2, 1), apples: 640, bananas: 960, cherries: 640, durians: 400 },
+         { month: new Date(2015, 3, 1), apples: 320, bananas: 480, cherries: 640, durians: 400 },
+      ];
 
+      const stack = d3.stack()
+         .keys(["apples", "bananas", "cherries", "durians"])
+         .order(d3.stackOrderNone)
+         .offset(d3.stackOffsetNone);
 
-
-         console.log(d3.select("path#test"));
-
-         d3.select("path#test")
-            .transition()
-            .duration(5000)
-            // .style("fill", 'black')
-            .styleTween("fill", function (t) {
-               console.log(t);
-               return function (t) {
-                  return "hsl(" + t * 360 + ",100%,50%)";
-               };
-            })
-
-
-
-      })
-
-
-
+      const series = stack(new_data);
 
 
 
