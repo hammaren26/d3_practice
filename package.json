@@ -51,6 +51,8 @@
       "@babel/polyfill": "^7.12.1",
       "colorbrewer": "^1.5.3",
       "d3": "^7.6.1",
+      "d3-cloud": "^1.2.5",
+      "d3-sankey": "^0.12.3",
       "d3-svg-legend": "^2.25.6",
       "handy-svg": "^1.0.8",
       "inputmask": "^5.0.7",
